@@ -13,7 +13,6 @@ function App() {
 
   return (
     <>
-    <h1>HELLO WORLD</h1>
       <Routes>
           <Route path="/" element={<MainDashboard />} />
           <Route path="/maindashboard" element={<MainDashboard />} />
