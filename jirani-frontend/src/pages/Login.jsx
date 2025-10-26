@@ -1,12 +1,21 @@
+import { useState } from 'react'
 import { useAuthHook } from '../hooks/authHook';
 import AuthInput from '../components/AuthInput'
+import Notification from '../components/Notification';
+import SubmitButton from '../components/SubmitButton';
 
 export default function Login() {
     const { username, password, rememberMe, handleUsernameChange, handlePasswordChange, handleRememberMeChange } = useAuthHook();
 
+    const [error, setError] = useState('');
+
+
     // Handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        
+
         // Handle login logic here
         console.log('Login attempt with:', { username, password, rememberMe });
         // Call an API here
@@ -17,6 +26,7 @@ export default function Login() {
             <div className="row w-100">
                 {/* Use offset to center the column on medium and larger screens */}
                 <div className="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto">
+                    <Notification message={error} onDismiss={()=>setError('')}/>
                     {/* Card with shadow and rounded corners */}
                     <div className="card shadow-lg border-0 rounded-4">
                         <div className="card-body p-4 p-sm-5">
@@ -64,11 +74,7 @@ export default function Login() {
                                 </div>
 
                                 {/* Submit Button */}
-                                <div className="d-grid">
-                                    <button type="submit" className="btn btn-primary btn-lg fw-semibold rounded-3 py-2">
-                                        Login
-                                    </button>
-                                </div>
+                                <SubmitButton text="Login" />
 
                                 {/* Sign Up Link */}
                                 <div className="text-center mt-4">
