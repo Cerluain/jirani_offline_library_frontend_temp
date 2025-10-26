@@ -1,5 +1,5 @@
-import { Routes, Route} from 'react-router'
-
+import { Routes, Route } from 'react-router'
+import Header from './components/Header'
 
 import MainDashboard from './pages/MainDashboard'
 import Analytics from './pages/Analytics'
@@ -13,6 +13,7 @@ function App() {
 
   return (
     <>
+      <Header />
       <Routes>
           <Route path="/" element={<MainDashboard />} />
           <Route path="/maindashboard" element={<MainDashboard />} />
