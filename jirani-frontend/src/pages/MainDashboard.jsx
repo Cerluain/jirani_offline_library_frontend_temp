@@ -8,15 +8,12 @@ export default function MainDashboard() {
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearching, setIsSearching] = useState(false);
 
-    function handleSearch() {
+    function handleSearch() { //Temporary- you'll have to call the api here
         if (query.trim() === '') return;
         setSearchTerm(query);
         setIsSearching(true);
     }
 
-    function handleOpenBook(book) {
-        alert(`Open book: ${book.title} (${book.id})`);
-    }
 
     return (
         <div style={{ minHeight: '100vh' }} className="bg-light p-4 p-lg-5">
@@ -24,13 +21,10 @@ export default function MainDashboard() {
                 <header className="mb-5">
                     <div className="d-flex align-items-center justify-content-between">
                         <div>
-                            <h1 className="h2 fw-bold">Books Dashboard</h1>
+                            <h1 className="h2 fw-bold">My Offlib Dashboard</h1>
                             <p className="small text-muted mt-1">
-                                Discover recommended reads or search the library.
+                                Explore recommended reads or search the library.
                             </p>
-                        </div>
-                        <div className="d-none d-md-block">
-                            <div className="small text-secondary">Welcome back 👋</div>
                         </div>
                     </div>
 
