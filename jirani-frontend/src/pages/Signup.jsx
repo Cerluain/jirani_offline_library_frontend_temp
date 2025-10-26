@@ -7,7 +7,7 @@ export default function Signup(){
 
     const [creatingAdmin, setCreatingAdmin ] = useState('boolean')
 
-    const { email, password, rememberMe ,handleEmailChange, handlePasswordChange } = useAuthHook();
+    const { username, password, rememberMe ,handleUsernameChange, handlePasswordChange } = useAuthHook();
     const [confirmPassword, setConfirmPassword] = useState(''); // Additional state for the confirm password input
     
     
@@ -36,8 +36,8 @@ export default function Signup(){
         }
 
         // Handle the API Call here
-        console.log('Attempting to setup account with:', { email, password });
-        // Like callApi.createAdmin({ email, password });
+        console.log('Attempting to setup account with:', { username, password });
+        // Like callApi.createAdmin({ username, password });
     };
 
     return (
@@ -53,14 +53,14 @@ export default function Signup(){
                             {/* Use noValidate to allow custom validation feedback */}
                             <form onSubmit={handleSubmit} noValidate>
 
-                                {/* Email Input */}
+                                {/* Username Input */}
                                 <AuthInput
-                                    label="Email address"
-                                    type="email"
-                                    id="setupEmail"
-                                    placeholder="name@example.com"
-                                    value={email}
-                                    onChange={handleEmailChange}
+                                    label="Username address"
+                                    type="username"
+                                    id="setupUsername"
+                                    placeholder="Username"
+                                    value={username}
+                                    onChange={handleUsernameChange}
                                     required={true}
                                 />
 

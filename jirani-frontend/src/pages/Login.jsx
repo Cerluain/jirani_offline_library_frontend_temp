@@ -2,13 +2,13 @@ import { useAuthHook } from '../hooks/authHook';
 import AuthInput from '../components/AuthInput'
 
 export default function Login() {
-    const { email, password, rememberMe, handleEmailChange, handlePasswordChange, handleRememberMeChange } = useAuthHook();
+    const { username, password, rememberMe, handleUsernameChange, handlePasswordChange, handleRememberMeChange } = useAuthHook();
 
     // Handle form submission
     const handleSubmit = (event) => {
         event.preventDefault();
         // Handle login logic here
-        console.log('Login attempt with:', { email, password, rememberMe });
+        console.log('Login attempt with:', { username, password, rememberMe });
         // Call an API here
     };
 
@@ -24,14 +24,14 @@ export default function Login() {
 
                             <form onSubmit={handleSubmit}>
 
-                                {/* Email Input */}
+                                {/* Username Input */}
                                 <AuthInput
-                                    label="Email address"
-                                    type="email"
-                                    id="loginEmail"
-                                    placeholder="name@example.com"
-                                    value={email}
-                                    onChange={handleEmailChange}
+                                    label="Username address"
+                                    type="username"
+                                    id="loginUsername"
+                                    placeholder="Username"
+                                    value={username}
+                                    onChange={handleUsernameChange}
                                     required={true}
                                 />
 
