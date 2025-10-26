@@ -18,7 +18,7 @@ export default function Login() {
                 {/* Use offset to center the column on medium and larger screens */}
                 <div className="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-5 mx-auto">
                     {/* Card with shadow and rounded corners */}
-                    <div className="card shadow-lg border-0 rounded-4" style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}>
+                    <div className="card shadow-lg border-0 rounded-4">
                         <div className="card-body p-4 p-sm-5">
                             <h2 className="card-title text-center mb-4 fw-bold">Welcome Back</h2>
 
