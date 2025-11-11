@@ -11,14 +11,29 @@ export default function Login() {
 
 
     // Handle form submission
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        try {
+            const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+            });
 
-        
-
-        // Handle login logic here
-        console.log('Login attempt with:', { username, password, rememberMe });
-        // Call an API here
+            if (response.ok) {
+                // Credentials are valid, proceed with the login process
+                console.log('Login successful');
+                window.location.href = '/profile';
+            } else {
+                // Credentials are invalid, display an error message to the user
+                setError('Invalid username or password');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            setError('An error occurred during login');
+        }
     };
 
     return (

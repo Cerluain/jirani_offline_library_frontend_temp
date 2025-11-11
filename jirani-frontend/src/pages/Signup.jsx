@@ -26,14 +26,40 @@ export default function Signup() {
      * Handles the form submission event.
      * Validates that passwords match before proceeding.
      */
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setError(''); // Clear previous errors
 
-        //TODO*** Check that the auth parameters are valid: Can create a function in authHook
-        
-        //Add future code here
+        if (!username || !password || !confirmPassword) {
+            setError('Please fill in all fields');
+            return;
+        }
 
+        if (password !== confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        try {
+            // Make the API request to create a new user account
+            const response = await fetch('/api/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+            });
+
+            if (response.ok) {
+                window.location.href = '/profile';
+            } else {
+                const errorData = await response.json();
+                setError(errorData.message);
+            }
+        } catch (error) {
+            console.error('Error during account creation:', error);
+            setError('An error occurred during account creation');
+        }
 
         if (password !== confirmPassword) { // Check if the passwords match
             setError('Passwords do not match. Please try again.');
