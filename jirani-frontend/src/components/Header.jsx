@@ -5,12 +5,12 @@ export default function Header() {
     const mainNavLinks = [
         { name: 'Dashboard', href: '/maindashboard' },
         { name: 'Analytics', href: '/analytics' },
-        { name: 'Upload & Manage', href: '/uploadandmanagement' },
+        { name: 'Manage Content', href: '/uploadandmanagement' },
     ];
 
     // Define the user-related links (profile, auth) and will be on the right
     const userNavLinks = [
-        { name: 'Profile', href: '/profile' },
+        { name: 'Account Info', href: '/profile' },
         { name: 'Login', href: '/login' },
         { name: 'Sign Up', href: '/signup' },
     ];
