@@ -1,5 +1,7 @@
+import StudentAnalytics from "./StudentAnalytics.jsx";
 export default function Analytics(){
     return(<>
-        Analytics
+        {/* Placeholder  Students Analytics */}
+        <StudentAnalytics />
     </>);
 }
