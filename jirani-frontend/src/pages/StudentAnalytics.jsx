@@ -1,4 +1,4 @@
-import { Dropdown, Table } from "react-bootstrap";
+import { Dropdown, Table } from "react-bootstrap"
 
 export default function StudentAnalytics() {
   // Sample data
@@ -18,6 +18,14 @@ export default function StudentAnalytics() {
           <h1 className="display-3 fw-normal">Student Analytics</h1>
         </div>
       </div>
+
+    <p>TODOS: 
+        <br/> Rename General Info Labels and Append Data to them
+        <br/> Fix the foreach student dropdown UI, Labels
+        <br/> Fix foreach book dropdown
+        <br/> Fetch Real Data from Backend
+    </p>
+
 
       {/* Main card */}
       <div className="row justify-content-center">
