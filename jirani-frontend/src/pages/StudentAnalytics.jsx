@@ -1,117 +1,142 @@
-import { Dropdown, Table } from "react-bootstrap"
+import { useState, useEffect } from "react";
+import { Dropdown, Table } from "react-bootstrap";
 
 export default function StudentAnalytics() {
-  // Sample data
-  const students = ["Student 1", "Student 2", "Student 3"];
-  const selectedStudent = "Student 3";
-  const totalHoursThisWeek = "4 Hours";
-  const books = [
-    { title: "Book 1", lastOpened: "18/12/2025", pageLastOpened: 72, hoursThisWeek: "3 Hours" },
-    { title: "Book 2", lastOpened: "15/12/2025", pageLastOpened: 70, hoursThisWeek: "1 Hour" },
-  ];
+  const [studentsData, setStudentsData] = useState({});
+  // eslint-disable-next-line no-unused-vars
+  const [selectedStudent, setSelectedStudent] = useState("Student 1");
+  // eslint-disable-next-line no-unused-vars
+  const [studentList, setStudentList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line no-unused-vars
+  const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fake fetch of backend for now
+
+      try {
+        setLoading(true);
+
+        await new Promise((resolve) => setTimeout(resolve, 800)); //fake delay for user experience lol
+
+        const FAKE_FETCH_DATA = {
+          "Student 1": {
+            totalHours: "12 Hours",
+            mostCommon: "Intro to CS",
+            lastBook: "React Basics",
+            books: [
+              {
+                title: "React Basics",
+                lastOpened: "18/12/2025",
+                page: 72,
+                hours: "5 Hours",
+              },
+              {
+                title: "Intro to CS",
+                lastOpened: "15/12/2025",
+                page: 10,
+                hours: "7 Hours",
+              },
+            ],
+          },
+          "Student 2": {
+            totalHours: "2 Hours",
+            mostCommon: "Advanced Math",
+            lastBook: "Advanced Math",
+            books: [
+              {
+                title: "Advanced Math",
+                lastOpened: "20/12/2025",
+                page: 102,
+                hours: "2 Hours",
+              },
+            ],
+          },
+        };
+        setStudentsData(FAKE_FETCH_DATA);
+        const names = Object.keys(FAKE_FETCH_DATA);
+        setStudentList(names);
+
+        if (names.length > 0) setSelectedStudent(names[0]);
+      } catch (err) {
+        setError("Use Effect Fetch Error");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // eslint-disable-next-line no-unused-vars
+  const currentData = selectedStudent ? studentsData[selectedStudent] : null;
+
+  if (loading) {
+    return <div>Loading student analytics...</div>;
+  }
   return (
-    <div className="container py-5">
-      {/* Page title */}
-      <div className="row justify-content-center mb-4">
-        <div className="col-12 text-center">
-          <h1 className="display-3 fw-normal">Student Analytics</h1>
+    <>
+      <div className="container py-5">
+        {/* Page Title */}
+        <div className="row justify-content-center mb-4">
+          <div className="col-12 text-center">
+            <h1 className="display-3 fw-normal">Student Analytics</h1>
+          </div>
         </div>
-      </div>
 
-    <p>TODOS: 
-        <br/> Rename General Info Labels and Append Data to them
-        <br/> Fix the foreach student dropdown UI, Labels
-        <br/> Fix foreach book dropdown
-        <br/> Fetch Real Data from Backend
-    </p>
+        {/* Main Card */}
+        <div className="row justify-content-center">
+          <div className="col-lg-8 col-md-10">
+            <div className="card shadow-sm px-4 py-5">
+              <div className="row justify-content-center">
+                <div className="col-12 col-md-10 mx-auto">
+                  {/* CONTENT WILL GO HERE IN CHUNK 3 & 4 */}
+                  {currentData && (
+                    <>
+                      <p className="lead mb-2">
+                        <strong>Total Time Spent This Week:</strong>{" "}
+                        {currentData.totalHours}
+                      </p>
+                      <p className="lead mb-2">
+                        <strong>Most Common Book Opened:</strong>{" "}
+                        {currentData.mostCommon}
+                      </p>
+                      <p className="lead mb-4">
+                        <strong>Last Book Opened:</strong>{" "}
+                        {currentData.lastBook}
+                      </p>
+                    </>
+                  )}
 
+                  <h5 className="h5 mt-3 mb-2">
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        variant="outline-primary"
+                        id="dropdown-basic"
+                      >
+                        {selectedStudent || "Select Student"}
+                      </Dropdown.Toggle>
 
-      {/* Main card */}
-      <div className="row justify-content-center">
-        <div className="col-lg-8 col-md-10">
-          <div className="card shadow-sm px-4 py-5">
-            <div className="row justify-content-center">
-              <div className="col-12 col-md-10 mx-auto">
-                <p className="lead mb-2">Total Time Spent This Week:</p>
-                <p className="lead mb-2">Most Common Book Opened:</p>
-                <p className="lead mb-4">Last Book Opened:</p>
-
-                {/* Student dropdown */}
-                <h5 className="h5 mt-3 mb-2">
-                  <Dropdown>
-                    <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
-                      {selectedStudent}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      {students.map((s, i) => (
-                        <Dropdown.Item key={i}>{s}</Dropdown.Item>
-                      ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </h5>
-
-                <div className="ps-3">
-                  <p className="mb-3">
-                    <strong>Total Hours Spent This Week:</strong> {totalHoursThisWeek}
-                  </p>
+                      <Dropdown.Menu>
+                        {studentList.map((s, i) => (
+                          <Dropdown.Item
+                            key={i}
+                            onClick={() => setSelectedStudent(s)}
+                          >
+                            {s}
+                          </Dropdown.Item>
+                        ))}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </h5>
                 </div>
-
-                <p className="mb-3"><strong>Books Read This Week</strong></p>
-
-                {/* Books table */}
-                <div className="table-responsive">
-                  <Table bordered hover size="sm" className="align-middle">
-                    <thead className="table-light text-center">
-                      <tr>
-                        <th>Title</th>
-                        <th>Last Opened</th>
-                        <th>Page Last Opened</th>
-                        <th>Hours This Week</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      {books.map((b, i) => (
-                        <tr key={i}>
-                          <td>
-                            <Dropdown>
-                              <Dropdown.Toggle
-                                variant="link"
-                                className="text-decoration-none text-dark p-0"
-                              >
-                                {b.title}
-                              </Dropdown.Toggle>
-
-                              <Dropdown.Menu>
-                                <Dropdown.Item>
-                                  <strong>Last Opened:</strong> {b.lastOpened}
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                  <strong>Page:</strong> {b.pageLastOpened}
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                  <strong>Hours This Week:</strong> {b.hoursThisWeek}
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </td>
-                          <td className="text-center">{b.lastOpened}</td>
-                          <td className="text-center">{b.pageLastOpened}</td>
-                          <td className="text-center">{b.hoursThisWeek}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
-                </div>
-
-                <div className="py-3" />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
